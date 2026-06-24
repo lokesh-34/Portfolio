@@ -59,8 +59,8 @@ export default function About() {
                     {/* Highlights Grid */}
                     <div className="grid sm:grid-cols-2 gap-4">
                         {highlights.map((item, index) => (
-                            <AnimatedCard key={index} delay={index * 0.1} className="p-6">
-                                <div className="w-12 h-12 rounded-lg bg-slate-800/50 flex items-center justify-center mb-4 border border-slate-700">
+                            <AnimatedCard key={index} delay={index * 0.1} className="p-6 group">
+                                <div className="w-12 h-12 rounded-xl bg-white/[0.03] flex items-center justify-center mb-4 border border-white/[0.06] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(139,92,246,0.2)] group-hover:border-primary-500/30">
                                     {item.icon}
                                 </div>
                                 <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>

@@ -44,7 +44,7 @@ export default function Experience() {
                         <div key={index} className={`relative flex flex-col md:flex-row gap-8 items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
 
                             {/* Timeline Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-slate-900 border-2 border-primary-500 transform -translate-x-[7px] md:-translate-x-1/2 mt-6 z-10 shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
+                            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#030014] border-2 border-primary-500 transform -translate-x-[7px] md:-translate-x-1/2 mt-6 z-10 shadow-[0_0_20px_rgba(139,92,246,0.6)]" />
 
                             {/* Empty Space for layout */}
                             <div className="hidden md:block md:w-1/2" />

@@ -6,7 +6,8 @@ export default function Footer() {
     }
 
     return (
-        <footer className="py-8 relative border-t border-slate-800/60 bg-slate-950">
+        <footer className="py-8 relative bg-[#030014]">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
@@ -24,7 +25,7 @@ export default function Footer() {
                     {/* Scroll to Top */}
                     <button
                         onClick={scrollToTop}
-                        className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-primary-500 transition-all group"
+                        className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-primary-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all group"
                         aria-label="Scroll to top"
                     >
                         <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==================== Base ==================== */
 * {
   margin: 0;
   padding: 0;
@@ -11,19 +12,17 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: none;
-  /* Hide scrollbar for a cleaner look */
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #050505;
+  background-color: #030014;
   color: #e4e4e7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==================== Selection ==================== */
 ::selection {
   background-color: rgba(139, 92, 246, 0.4);
   color: #fff;
@@ -31,27 +30,30 @@ body {
 
 /* ==================== Glass Effects ==================== */
 .glass {
-  background: rgba(9, 9, 11, 0.5);
+  background: rgba(9, 9, 20, 0.6);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .glass-pill {
-  background: rgba(24, 24, 27, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-}
-
-.glass-card {
-  background: rgba(24, 24, 27, 0.6);
+  background: rgba(15, 10, 30, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card {
+  background: rgba(15, 10, 30, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 24px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
@@ -64,18 +66,23 @@ body {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to right,
-      transparent,
-      rgba(255, 255, 255, 0.03),
-      transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
   transform: skewX(-20deg);
   transition: all 0.7s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.25);
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 60px -20px rgba(139, 92, 246, 0.25);
+  box-shadow:
+    0 30px 60px -20px rgba(139, 92, 246, 0.2),
+    0 0 80px -30px rgba(139, 92, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .glass-card:hover::before {
@@ -91,7 +98,14 @@ body {
 }
 
 .gradient-text-animated {
-  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 25%, #0ea5e9 50%, #8b5cf6 100%);
+  background: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #d946ef 25%,
+    #06b6d4 50%,
+    #8b5cf6 75%,
+    #d946ef 100%
+  );
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,7 +113,7 @@ body {
   animation: gradient 8s ease infinite;
 }
 
-/* ==================== High-End Button ==================== */
+/* ==================== Buttons ==================== */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -107,7 +121,7 @@ body {
   gap: 0.75rem;
   padding: 1rem 2.5rem;
   background: #ffffff;
-  color: #050505;
+  color: #030014;
   font-weight: 600;
   border-radius: 9999px;
   border: none;
@@ -147,36 +161,37 @@ body {
   color: #fff;
   font-weight: 600;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
   transition: all 0.4s ease;
   font-size: 1.05rem;
 }
 
 .btn-outline:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.08);
   transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
 }
 
 /* ==================== Tech Tag ==================== */
 .tech-tag {
   display: inline-block;
   padding: 0.4rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(139, 92, 246, 0.06);
   color: #d4d4d8;
   border-radius: 9999px;
   font-size: 0.85rem;
   font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.12);
   transition: all 0.3s ease;
 }
 
 .tech-tag:hover {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
   color: #fff;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
 }
 
 /* ==================== Sections ==================== */
@@ -194,14 +209,150 @@ body {
   font-family: 'Outfit', sans-serif;
   font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 @media (min-width: 768px) {
   .section-title {
-    font-size: 4rem;
+    font-size: 4.5rem;
   }
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: #71717a;
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(139, 92, 246, 0.12),
+    transparent
+  );
+}
+
+/* ==================== Skills Logo Marquee ==================== */
+.marquee-container {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll-left 35s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-track-reverse {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll-right 35s linear infinite;
+}
+
+.marquee-track-reverse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.skill-logo-card {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1.5rem;
+  background: rgba(15, 10, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  white-space: nowrap;
+}
+
+.skill-logo-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.1);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25);
+}
+
+.skill-logo-card img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.08));
+}
+
+.skill-logo-card span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #a1a1aa;
+  transition: color 0.3s ease;
+}
+
+.skill-logo-card:hover span {
+  color: #ffffff;
+}
+
+/* ==================== Hero Geometric Element ==================== */
+.hero-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+}
+
+.hero-ring-1 {
+  inset: 0;
+  border-color: rgba(139, 92, 246, 0.15);
+  animation: hero-spin 20s linear infinite;
+}
+
+.hero-ring-2 {
+  inset: 15%;
+  border-color: rgba(6, 182, 212, 0.15);
+  animation: hero-spin 15s linear infinite reverse;
+}
+
+.hero-ring-3 {
+  inset: 30%;
+  border-color: rgba(217, 70, 239, 0.15);
+  animation: hero-spin 25s linear infinite;
+}
+
+@keyframes hero-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== Scroll Indicator ==================== */
+@keyframes slide-down {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { transform: translateY(0%); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
 }
 
 /* ==================== Noise Texture ==================== */
@@ -211,18 +362,13 @@ body {
   inset: -50%;
   width: 200%;
   height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 50;
   animation: noise 2s steps(2) infinite;
 }
 
 @keyframes noise {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(-5%, -5%);
-  }
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-5%, -5%); }
 }

@@ -86,7 +86,7 @@ export default function Contact() {
                                         required
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder-slate-500"
+                                        className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500"
                                         placeholder="John Doe"
                                     />
                                 </div>
@@ -100,7 +100,7 @@ export default function Contact() {
                                         required
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder-slate-500"
+                                        className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500"
                                         placeholder="john@example.com"
                                     />
                                 </div>
@@ -116,7 +116,7 @@ export default function Contact() {
                                     rows={5}
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all placeholder-slate-500 resize-none"
+                                    className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500 resize-none"
                                     placeholder="How can I help you?"
                                 />
                             </div>

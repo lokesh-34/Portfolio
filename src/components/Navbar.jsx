@@ -13,10 +13,12 @@ const navLinks = [
 export default function Navbar() {
     const [activeSection, setActiveSection] = useState('home')
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
 
     // Minimal scrollspy equivalent
     useEffect(() => {
         const handleScroll = () => {
+            setScrolled(window.scrollY > 50)
             const sections = navLinks.map(link => link.name.toLowerCase())
             for (const section of sections.reverse()) {
                 const element = document.getElementById(section)
@@ -41,7 +43,7 @@ export default function Navbar() {
                     initial={{ y: -50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="glass-pill px-6 py-3 flex items-center justify-between gap-8 md:gap-16 w-full max-w-4xl"
+                    className={`px-6 py-3 flex items-center justify-between gap-8 md:gap-16 w-full max-w-4xl rounded-full transition-all duration-500 ${scrolled ? 'bg-[rgba(15,10,30,0.7)] backdrop-blur-xl border border-white/[0.08] shadow-lg shadow-black/30' : 'bg-transparent border border-transparent'}`}
                 >
                     {/* Logo */}
                     <a href="#home" className="text-xl font-display font-bold text-white flex items-center gap-2 group flex-shrink-0">
@@ -78,7 +80,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-4">
                         <a
                             href="#contact"
-                            className="hidden md:flex items-center gap-2 text-sm font-medium px-5 py-2 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors"
+                            className="hidden md:flex items-center gap-2 text-sm font-medium px-5 py-2 rounded-full bg-white text-black hover:bg-primary-500 hover:text-white transition-all duration-300"
                         >
                             Let's Talk
                         </a>

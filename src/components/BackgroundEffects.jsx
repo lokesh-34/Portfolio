@@ -92,6 +92,10 @@ export default function BackgroundEffects() {
         <div className="w-full h-full rounded-full bg-gradient-to-r from-accent-500 to-primary-600 animate-spin-slow" style={{ animationDirection: 'reverse' }} />
       </div>
 
+      <div className="absolute top-[40%] left-[50%] w-[30%] h-[30%] rounded-full opacity-[0.1] blur-[120px]">
+        <div className="w-full h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-primary-500" />
+      </div>
+
       {/* Grid Overlay for depth */}
       <div 
         className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
@@ -105,9 +109,9 @@ export default function BackgroundEffects() {
       />
       
       {/* Top vignette / gradient fade */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#050505] to-transparent z-10" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#030014] to-transparent z-10" />
       {/* Bottom vignette / gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050505] to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#030014] to-transparent z-10" />
     </div>
   )
 }

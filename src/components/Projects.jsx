@@ -10,7 +10,7 @@ export default function Projects() {
             description: "AI-powered placement preparation platform featuring interactive coding practice, aptitude tests, and simulated AI mock interviews to boost employment readiness.",
             tags: ["React", "Node.js", "PostgreSQL", "Groq AI"],
             github: "https://github.com/lokesh-34",
-            live: "https://prepplace.vercel.app",
+            live: "https://prepplace.netlify.app",
             image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2940&auto=format&fit=crop",
             color: "#8b5cf6" // primary-500
         },
@@ -97,7 +97,7 @@ export default function Projects() {
                                 />
 
                                 {/* Hover overlay gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90 lg:opacity-60" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-90 lg:opacity-60" />
 
                                 {/* Mobile view inner text (visible only on small screens or hover on large) */}
                                 <div className="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hidden lg:flex items-center justify-between">
@@ -112,6 +112,9 @@ export default function Projects() {
 
                             {/* Project Info Panel */}
                             <div className="w-full lg:w-2/5 flex flex-col justify-center">
+                                <span className="text-[7rem] font-display font-black text-white/[0.03] leading-none select-none pointer-events-none">
+                                    {String(index + 1).padStart(2, '0')}
+                                </span>
                                 <p className="text-sm font-bold tracking-widest uppercase mb-4" style={{ color: project.color }}>
                                     {project.category}
                                 </p>

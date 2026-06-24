@@ -64,10 +64,11 @@ export default function Achievements() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="text-center flex flex-col items-center p-6 glow-border glass-card rounded-2xl"
+                            className="text-center flex flex-col items-center p-8 glass-card rounded-2xl relative overflow-hidden"
                         >
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent pointer-events-none" />
                             <AnimatedCounter value={stat.value} />
-                            <div className="mt-4 mb-1 h-1 w-12 bg-primary-500 rounded-full" />
+                            <div className="mt-4 mb-1 h-1 w-12 bg-gradient-to-r from-primary-500 to-fuchsia-500 rounded-full" />
                             <h4 className="text-lg font-semibold text-white mt-2">{stat.label}</h4>
                             <p className="text-sm text-slate-400 mt-2">{stat.desc}</p>
                         </motion.div>
