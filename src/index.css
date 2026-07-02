@@ -372,3 +372,117 @@ body {
   0% { transform: translate(0, 0); }
   100% { transform: translate(-5%, -5%); }
 }
+
+/* ==================== Boot Loader ==================== */
+.boot-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+}
+
+.boot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0 34%, rgba(255, 255, 255, 0.04) 35%, transparent 36%);
+  background-size: 180px 180px;
+  opacity: 0.35;
+  transform: rotate(12deg);
+}
+
+@keyframes boot-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: boot-spin-slow 2.4s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: boot-spin-slow 3.2s linear infinite reverse;
+}
+
+@keyframes boot-load {
+  0% {
+    transform: translateX(-140%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(240%);
+    opacity: 0;
+  }
+}
+
+.loading-bar {
+  animation: boot-load 1.5s ease-in-out infinite;
+}
+
+.boot-scanlines {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.03) 50%,
+    transparent 50%
+  );
+  background-size: 100% 6px;
+  mix-blend-mode: screen;
+  opacity: 0.32;
+}
+
+@keyframes boot-pulse-line {
+  0%,
+  100% {
+    transform: scaleY(0.65);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 0.85;
+  }
+}
+
+.boot-pulse-line {
+  animation: boot-pulse-line 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.boot-pulse-line-reverse {
+  animation: boot-pulse-line 2.8s ease-in-out infinite reverse;
+  transform-origin: center;
+}
+
+@keyframes boot-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes boot-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) rotate(12deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%) rotate(12deg);
+  }
+}
+
+.boot-float {
+  animation: boot-float 5s ease-in-out infinite;
+}
+
+.boot-sweep {
+  animation: boot-sweep 2.6s ease-in-out infinite;
+}

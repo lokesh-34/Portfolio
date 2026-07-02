@@ -15,6 +15,16 @@ export default function Projects() {
             color: "#8b5cf6" // primary-500
         },
         {
+            title: "SQLTalk",
+            category: "Full Stack & AI",
+            description: "AI-powered database analytics platform that converts natural language to SQL queries, enabling business users to gain insights from data without SQL expertise. Features real-time results, interactive visualizations, and multi-layer security validation.",
+            tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Groq AI"],
+            github: "https://github.com/Naveen-Arul/SQLTalk",
+            live: "https://sql-talk.vercel.app/",
+            image: "https://github.com/Naveen-Arul/SQLTalk/raw/master/frontend/frontend-img.png",
+            color: "#14b8a6" // Teal
+        },
+        {
             title: "WhatsApp Clone",
             category: "Full Stack & WebSockets",
             description: "A secure, real-time messaging platform featuring end-to-end encryption, instant delivery status, and media sharing capabilities.",
@@ -33,16 +43,6 @@ export default function Projects() {
             live: "https://carbuzz.netlify.app/",
             image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2940&auto=format&fit=crop",
             color: "#f59e0b" // Amber
-        },
-        {
-            title: "Email Spam Analyser",
-            category: "Machine Learning / NLP",
-            description: "High-precision email classification system utilizing Naive Bayes and TF-IDF vectorization to detect and filter spam content.",
-            tags: ["Python", "Scikit-Learn", "NLTK", "Flask"],
-            github: "https://github.com/lokesh-34",
-            live: "https://github.com/lokesh-34",
-            image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2940&auto=format&fit=crop",
-            color: "#ef4444" // Red
         },
         {
             title: "RAG System",
