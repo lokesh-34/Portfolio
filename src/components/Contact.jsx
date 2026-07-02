@@ -1,150 +1,138 @@
-import { SectionWrapper, SectionHeader, AnimatedCard } from './SectionWrapper'
-import { Mail, Github, Linkedin, Send, User, MessageSquare } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Mail, Copy, Check } from 'lucide-react'
+import { SectionWrapper, SectionHeader, AnimatedCard } from './SectionWrapper'
+
+const EMAIL_ADDRESS = 'lokesh28nm@gmail.com'
+const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL_ADDRESS)}&su=Portfolio%20Contact`
 
 export default function Contact() {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [submitStatus, setSubmitStatus] = useState(null)
+    const [showToast, setShowToast] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        setIsSubmitting(true)
+    useEffect(() => {
+        if (!showToast) {
+            return undefined
+        }
 
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false)
-            setSubmitStatus('success')
-            setFormData({ name: '', email: '', message: '' })
+        const timeout = window.setTimeout(() => {
+            setShowToast(false)
+        }, 2200)
 
-            setTimeout(() => setSubmitStatus(null), 3000)
-        }, 1500)
+        return () => window.clearTimeout(timeout)
+    }, [showToast])
+
+    const handleCopyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(EMAIL_ADDRESS)
+            setIsCopied(true)
+            setShowToast(true)
+
+            window.setTimeout(() => {
+                setIsCopied(false)
+            }, 1400)
+        } catch {
+            setShowToast(false)
+        }
     }
 
     return (
         <SectionWrapper id="contact">
             <SectionHeader
-                title="Get in Touch"
-                subtitle="Looking for an AI engineer or full-stack developer? Let's connect."
+                title="Let's Connect"
+                subtitle="I'm always open to internships, full-time opportunities, collaborations, or discussing interesting projects. Feel free to reach out."
             />
 
-            <div className="container mx-auto px-6 max-w-5xl">
-                <div className="grid lg:grid-cols-5 gap-12">
+            <div className="container mx-auto px-6 max-w-4xl">
+                <AnimatedCard className="relative overflow-hidden rounded-[2rem] border-primary-500/20 p-1">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(139,92,246,0.16),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.1),transparent_30%)]" />
+                    <div className="absolute inset-0 bg-white/[0.01]" />
 
-                    {/* Contact Info */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <h3 className="text-2xl font-bold text-white mb-6">Let's talk about everything!</h3>
-                        <p className="text-slate-400 mb-8">
-                            Don't like forms? Send me an email. 👋
-                        </p>
-
-                        <AnimatedCard className="p-6 flex items-center gap-4 hover:border-primary-500/40">
-                            <div className="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-400 flex-shrink-0">
-                                <Mail className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-slate-500 mb-1">Email</p>
-                                <a href="mailto:lokesh@example.com" className="text-white font-medium hover:text-primary-400 transition-colors">lokeshn.tech@gmail.com</a>
-                            </div>
-                        </AnimatedCard>
-
-                        <AnimatedCard delay={0.1} className="p-6 flex items-center gap-4 hover:border-[#0077b5]/50">
-                            <div className="w-12 h-12 rounded-full bg-[#0077b5]/10 flex items-center justify-center text-[#0077b5] flex-shrink-0">
-                                <Linkedin className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-slate-500 mb-1">LinkedIn</p>
-                                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-white font-medium hover:text-[#0077b5] transition-colors">linkedin.com/in/lokesh-n</a>
-                            </div>
-                        </AnimatedCard>
-
-                        <AnimatedCard delay={0.2} className="p-6 flex items-center gap-4 hover:border-white/40">
-                            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white flex-shrink-0">
-                                <Github className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-slate-500 mb-1">GitHub</p>
-                                <a href="https://github.com/lokesh-34" target="_blank" rel="noreferrer" className="text-white font-medium hover:text-slate-300 transition-colors">github.com/lokesh-34</a>
-                            </div>
-                        </AnimatedCard>
-                    </div>
-
-                    {/* Contact Form */}
-                    <AnimatedCard delay={0.3} className="lg:col-span-3 p-8 border-primary-500/20 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 blur-[100px] rounded-full pointer-events-none" />
-
-                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="name" className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                        <User className="w-4 h-4 text-primary-400" /> Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        required
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500"
-                                        placeholder="John Doe"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label htmlFor="email" className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                        <Mail className="w-4 h-4 text-primary-400" /> Email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        required
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500"
-                                        placeholder="john@example.com"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                    <MessageSquare className="w-4 h-4 text-primary-400" /> Message
-                                </label>
-                                <textarea
-                                    id="message"
-                                    required
-                                    rows={5}
-                                    value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-[#0a0520]/60 border border-white/[0.06] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-primary-500/60 focus:ring-2 focus:ring-primary-500/20 transition-all placeholder-slate-500 resize-none"
-                                    placeholder="How can I help you?"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="btn-primary w-full justify-center group disabled:opacity-70 disabled:cursor-not-allowed"
+                    <div className="relative z-10 rounded-[1.75rem] border border-white/[0.06] bg-[#0a0520]/70 p-6 sm:p-8 md:p-10 backdrop-blur-xl shadow-[0_30px_80px_-30px_rgba(139,92,246,0.35)]">
+                        <div className="flex flex-col items-center text-center gap-6">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.85, y: 8 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.6 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={{ scale: 1.04 }}
+                                className="group relative flex h-20 w-20 items-center justify-center rounded-full border border-primary-500/20 bg-primary-500/10 shadow-[0_0_40px_rgba(139,92,246,0.25)]"
                             >
-                                {isSubmitting ? (
-                                    <span className="flex items-center gap-2">
-                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                        Sending...
-                                    </span>
-                                ) : submitStatus === 'success' ? (
-                                    <span className="text-white">Message Sent! ✓</span>
-                                ) : (
-                                    <span className="flex items-center gap-2">
-                                        Send Message
-                                        <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                    </span>
-                                )}
-                            </button>
-                        </form>
-                    </AnimatedCard>
+                                <div className="absolute inset-0 rounded-full bg-primary-500/10 blur-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                <motion.div
+                                    animate={{ y: [0, -4, 0] }}
+                                    transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+                                    className="relative"
+                                >
+                                    <Mail className="h-8 w-8 text-primary-300 drop-shadow-[0_0_14px_rgba(167,139,250,0.45)]" />
+                                </motion.div>
+                            </motion.div>
 
-                </div>
+                            <div className="max-w-2xl space-y-4">
+                                <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                                    Let's Connect
+                                </h3>
+                                <p className="text-base sm:text-lg leading-8 text-zinc-400">
+                                    I'm always open to internships, full-time opportunities, collaborations, or discussing interesting projects. Feel free to reach out.
+                                </p>
+                            </div>
+
+                            <div className="w-full max-w-2xl">
+                                <motion.a
+                                    href={GMAIL_COMPOSE_URL}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    whileHover={{ y: -4, scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    className="group flex w-full items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] px-5 py-4 text-left transition-all duration-300 hover:border-primary-500/40 hover:bg-primary-500/10 hover:shadow-[0_0_40px_rgba(139,92,246,0.18)]"
+                                >
+                                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-primary-500/15 bg-primary-500/10 text-primary-300 transition-transform duration-300 group-hover:scale-105">
+                                        <Mail className="h-6 w-6" />
+                                    </div>
+
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-xs uppercase tracking-[0.35em] text-zinc-500">Email Address</p>
+                                        <p className="mt-1 break-all text-lg font-medium text-white transition-colors group-hover:text-primary-200">
+                                            {EMAIL_ADDRESS}
+                                        </p>
+                                    </div>
+
+                                    <div className="hidden rounded-full border border-white/[0.08] px-3 py-1 text-xs uppercase tracking-[0.3em] text-zinc-400 sm:block">
+                                        Compose in Gmail
+                                    </div>
+                                </motion.a>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full max-w-2xl">
+                                <motion.button
+                                    type="button"
+                                    onClick={handleCopyEmail}
+                                    whileHover={{ y: -3, scale: 1.01 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className="btn-primary w-full sm:w-auto justify-center gap-3"
+                                >
+                                    {isCopied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+                                    <span>{isCopied ? 'Copied' : 'Copy Email'}</span>
+                                </motion.button>
+
+                                <div className="flex-1 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 text-sm text-zinc-400">
+                                    Fastest response for collaborations and opportunities.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </AnimatedCard>
             </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className={`fixed bottom-6 left-1/2 z-[120] -translate-x-1/2 rounded-full border border-emerald-400/20 bg-[#0a0520]/95 px-5 py-3 text-sm font-medium text-emerald-200 shadow-[0_20px_50px_-20px_rgba(16,185,129,0.45)] backdrop-blur-xl transition-all duration-300 ${showToast ? 'pointer-events-auto opacity-100 translate-y-0' : 'pointer-events-none opacity-0 translate-y-3'}`}
+            >
+                Email copied!
+            </motion.div>
         </SectionWrapper>
     )
 }
