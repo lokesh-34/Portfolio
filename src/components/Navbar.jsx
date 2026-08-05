@@ -7,6 +7,7 @@ const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Profiles', href: '#profiles' },
     { name: 'Contact', href: '#contact' },
 ]
 
@@ -35,6 +36,12 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    // Lock body scroll when mobile menu open
+    useEffect(() => {
+        document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
+        return () => { document.body.style.overflow = '' }
+    }, [isMobileMenuOpen])
+
     return (
         <>
             <header className="fixed top-6 left-0 right-0 z-50 flex justify-center w-full px-4">
@@ -47,7 +54,7 @@ export default function Navbar() {
                 >
                     {/* Logo */}
                     <a href="#home" className="text-xl font-display font-bold text-white flex items-center gap-2 group flex-shrink-0">
-                        <Code2 className="text-primary-500 w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        <Code2 className="text-primary-500 w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
                         <span className="hidden sm:block">Lokesh<span className="text-primary-500">.</span></span>
                     </a>
 
@@ -59,17 +66,22 @@ export default function Navbar() {
                                 <li key={link.name}>
                                     <a
                                         href={link.href}
-                                        className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                                        className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
                                             }`}
                                     >
                                         {isActive && (
                                             <motion.div
                                                 layoutId="nav-pill"
-                                                className="absolute inset-0 bg-white/10 rounded-full"
+                                                className="absolute inset-0 bg-white/10 rounded-full border border-white/[0.06]"
                                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                             />
                                         )}
-                                        <span className="relative z-10">{link.name}</span>
+                                        <span className="relative z-10 flex items-center gap-1.5">
+                                            {isActive && (
+                                                <span className="w-1.5 h-1.5 rounded-full bg-primary-400 shadow-[0_0_6px_#a78bfa] animate-pulse" />
+                                            )}
+                                            {link.name}
+                                        </span>
                                     </a>
                                 </li>
                             )
@@ -80,14 +92,16 @@ export default function Navbar() {
                     <div className="flex items-center gap-4">
                         <a
                             href="#contact"
-                            className="hidden md:flex items-center gap-2 text-sm font-medium px-5 py-2 rounded-full bg-white text-black hover:bg-primary-500 hover:text-white transition-all duration-300"
+                            className="hidden md:flex items-center gap-2 text-sm font-medium px-5 py-2 rounded-full bg-white text-black relative overflow-hidden group transition-all duration-400"
                         >
-                            Let's Talk
+                            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Let's Talk</span>
+                            <span className="absolute inset-0 bg-gradient-to-r from-primary-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                         </a>
 
                         <button
                             className="md:hidden text-zinc-300 hover:text-white p-2"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                         >
                             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>
@@ -98,28 +112,46 @@ export default function Navbar() {
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed inset-4 top-24 z-40 glass-card p-6 flex flex-col md:hidden items-center justify-center gap-6"
-                    >
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                className="text-2xl font-display font-medium text-zinc-300 hover:text-white transition-colors"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                {link.name}
-                            </a>
-                        ))}
-                        <div className="flex gap-6 mt-8 pt-8 border-t border-white/10 w-full justify-center">
-                            <a href="https://github.com/lokesh-34" className="text-zinc-400 hover:text-white"><Github /></a>
-                            <a href="https://linkedin.com" className="text-zinc-400 hover:text-white"><Linkedin /></a>
-                        </div>
-                    </motion.div>
+                    <>
+                        {/* Backdrop blur overlay */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="fixed inset-0 z-30 bg-[#030014]/70 backdrop-blur-sm md:hidden"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            className="fixed inset-4 top-24 z-40 glass-card p-6 flex flex-col md:hidden items-center justify-center gap-6"
+                        >
+                            {navLinks.map((link, index) => (
+                                <motion.a
+                                    key={link.name}
+                                    href={link.href}
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.05 + index * 0.05 }}
+                                    className={`text-2xl font-display font-medium transition-colors ${
+                                        activeSection === link.name.toLowerCase()
+                                            ? 'text-white'
+                                            : 'text-zinc-400 hover:text-white'
+                                    }`}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </motion.a>
+                            ))}
+                            <div className="flex gap-6 mt-8 pt-8 border-t border-white/10 w-full justify-center">
+                                <a href="https://github.com/lokesh-34" className="text-zinc-400 hover:text-white transition-colors" aria-label="GitHub"><Github /></a>
+                                <a href="https://linkedin.com" className="text-zinc-400 hover:text-white transition-colors" aria-label="LinkedIn"><Linkedin /></a>
+                            </div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
         </>

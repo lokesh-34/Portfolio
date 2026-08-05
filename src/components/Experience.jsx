@@ -1,29 +1,49 @@
+import { useRef } from 'react'
 import { SectionWrapper, SectionHeader, AnimatedCard } from './SectionWrapper'
-import { motion } from 'framer-motion'
-import { Briefcase, GraduationCap, Calendar, Users, Cpu } from 'lucide-react'
+import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import { Briefcase, GraduationCap, Calendar, Users } from 'lucide-react'
+
+function TimelineDot() {
+    const ref = useRef(null)
+    const inView = useInView(ref, { once: true, margin: '-50px' })
+
+    return (
+        <div
+            ref={ref}
+            className={`absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#030014] border-2 border-primary-500 transform -translate-x-[7px] md:-translate-x-1/2 mt-6 z-10 shadow-[0_0_20px_rgba(139,92,246,0.6)] ${inView ? 'timeline-dot-animate' : ''}`}
+        />
+    )
+}
 
 export default function Experience() {
+    const timelineRef = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: timelineRef,
+        offset: ['start end', 'end start'],
+    })
+    const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+
     const experiences = [
         {
-            title: "B.Tech AI & Data Science",
+            title: "B.Tech – Artificial Intelligence & Data Science",
             organization: "Kongu Engineering College",
-            date: "2022 - 2026",
+            date: "Expected Graduation: 2027",
             icon: <GraduationCap className="w-5 h-5 text-accent-400" />,
             points: [
-                "Focus on core AI algorithms, data analytics, and modern software engineering.",
-                "Active participant in technical symposiums and coding competitions.",
-                "Strong academic performance with focus on practical implementations."
+                "Relevant coursework: Data Structures, Algorithms, Machine Learning, Deep Learning, DBMS, OS, CN, AI, and Software Engineering.",
+                "Building a strong foundation in both intelligent systems and software development.",
+                "Continuously applying classroom concepts through hands-on projects and coding practice."
             ]
         },
         {
-            title: "Collaborative Development",
-            organization: "Open Source / Team Projects",
+            title: "Full Stack & AI Project Work",
+            organization: "Academic and Personal Projects",
             date: "Ongoing",
             icon: <Users className="w-5 h-5 text-emerald-400" />,
             points: [
-                "Collaborated via Git and GitHub for seamless version control.",
-                "Participated in multiple hackathons building innovative solutions.",
-                "Mentored peers in fundamental DSA concepts."
+                "Developed responsive MERN applications and AI-powered tools with modern UI patterns.",
+                "Worked with AWS, CI/CD, Docker, and deployment workflows for real-world delivery.",
+                "Used Git and GitHub to collaborate, iterate quickly, and maintain clean version control."
             ]
         }
     ]
@@ -32,19 +52,27 @@ export default function Experience() {
         <SectionWrapper id="experience">
             <SectionHeader
                 title="Experience & Education"
-                subtitle="My journey in academic and collaborative software development."
+                subtitle="My journey through college, projects, and the tools I use to turn ideas into shipped work."
             />
 
-            <div className="container mx-auto px-6 max-w-4xl relative">
-                {/* Timeline Line */}
-                <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500/50 via-accent-400/50 to-transparent transform md:-translate-x-1/2" />
+            <div ref={timelineRef} className="container mx-auto px-6 max-w-4xl relative">
+                {/* Static Timeline Track */}
+                <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/[0.06] transform md:-translate-x-1/2" />
+                {/* Animated Timeline Fill */}
+                <motion.div
+                    className="absolute left-8 md:left-1/2 top-0 w-px transform md:-translate-x-1/2 origin-top"
+                    style={{
+                        height: lineHeight,
+                        background: 'linear-gradient(to bottom, rgba(139, 92, 246, 0.6), rgba(34, 211, 238, 0.6), transparent)',
+                    }}
+                />
 
                 <div className="space-y-12">
                     {experiences.map((exp, index) => (
                         <div key={index} className={`relative flex flex-col md:flex-row gap-8 items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
 
                             {/* Timeline Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#030014] border-2 border-primary-500 transform -translate-x-[7px] md:-translate-x-1/2 mt-6 z-10 shadow-[0_0_20px_rgba(139,92,246,0.6)]" />
+                            <TimelineDot />
 
                             {/* Empty Space for layout */}
                             <div className="hidden md:block md:w-1/2" />

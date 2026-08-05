@@ -34,8 +34,10 @@ const row2Skills = [
 ]
 
 const additionalSkills = [
-    'Generative AI', 'LLM', 'RAG', 'Scikit-Learn',
-    'Framer Motion', 'REST APIs', 'Data Analysis', 'Postman'
+    'Machine Learning', 'Deep Learning', 'CNN', 'Transfer Learning',
+    'AWS EC2', 'AWS S3', 'GitHub Actions', 'CI/CD Pipelines',
+    'Linux', 'Nginx', 'PM2', 'MongoDB Atlas',
+    'Figma', 'Postman', 'Scikit-Learn', 'TensorFlow'
 ]
 
 export default function Skills() {
@@ -58,7 +60,7 @@ export default function Skills() {
         <SectionWrapper id="skills">
             <SectionHeader
                 title="Technical Arsenal"
-                subtitle="Technologies and tools I use to bring ideas to life."
+                subtitle="Programming, AI, cloud, and frontend tools I use to build and ship modern applications."
             />
 
             <div className="space-y-8 max-w-7xl mx-auto">

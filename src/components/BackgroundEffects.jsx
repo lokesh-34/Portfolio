@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+const MAX_PARTICLES = 200
+
 export default function BackgroundEffects() {
   const canvasRef = useRef(null)
 
@@ -50,7 +52,10 @@ export default function BackgroundEffects() {
 
     const init = () => {
       particles = []
-      const numberOfParticles = (canvas.width * canvas.height) / 10000 // Responsive count
+      const numberOfParticles = Math.min(
+        Math.floor((canvas.width * canvas.height) / 10000),
+        MAX_PARTICLES
+      )
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle())
       }
@@ -84,11 +89,11 @@ export default function BackgroundEffects() {
       />
 
       {/* Primary Gradient Mesh */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full opacity-[0.15] blur-[120px] animate-orbit">
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full opacity-[0.15] blur-[120px] animate-orbit" style={{ willChange: 'transform' }}>
         <div className="w-full h-full rounded-full bg-gradient-to-r from-primary-500 to-fuchsia-500 animate-spin-slow" />
       </div>
 
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-[0.15] blur-[150px] animate-orbit" style={{ animationDirection: 'reverse', animationDuration: '30s' }}>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-[0.15] blur-[150px] animate-orbit" style={{ animationDirection: 'reverse', animationDuration: '30s', willChange: 'transform' }}>
         <div className="w-full h-full rounded-full bg-gradient-to-r from-accent-500 to-primary-600 animate-spin-slow" style={{ animationDirection: 'reverse' }} />
       </div>
 

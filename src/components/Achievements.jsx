@@ -5,6 +5,7 @@ import { useRef } from 'react'
 
 function AnimatedCounter({ value, duration = 2 }) {
     const [count, setCount] = useState(0)
+    const [done, setDone] = useState(false)
     const nodeRef = useRef(null)
     const inView = useInView(nodeRef, { once: true, margin: '-50px' })
 
@@ -17,6 +18,7 @@ function AnimatedCounter({ value, duration = 2 }) {
 
         if (isNaN(end)) {
             setCount(value)
+            setDone(true)
             return
         }
 
@@ -29,6 +31,7 @@ function AnimatedCounter({ value, duration = 2 }) {
             start += stepValue
             if (currentStep >= totalSteps) {
                 setCount(`${end}${suffix}`)
+                setDone(true)
                 clearInterval(timer)
             } else {
                 setCount(`${Math.floor(start)}${suffix}`)
@@ -39,9 +42,14 @@ function AnimatedCounter({ value, duration = 2 }) {
     }, [inView, value, duration])
 
     return (
-        <span ref={nodeRef} className="text-4xl md:text-5xl font-display font-bold gradient-text">
+        <motion.span
+            ref={nodeRef}
+            className="text-4xl md:text-5xl font-display font-bold gradient-text"
+            animate={done ? { scale: [1, 1.08, 1] } : {}}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
             {count}
-        </span>
+        </motion.span>
     )
 }
 
@@ -64,11 +72,13 @@ export default function Achievements() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="text-center flex flex-col items-center p-8 glass-card rounded-2xl relative overflow-hidden"
+                            className="text-center flex flex-col items-center p-8 glass-card rounded-2xl relative overflow-hidden group"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent pointer-events-none transition-opacity duration-500 group-hover:from-primary-500/[0.12]" />
+                            {/* Glow pulse on hover */}
+                            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(139, 92, 246, 0.08)' }} />
                             <AnimatedCounter value={stat.value} />
-                            <div className="mt-4 mb-1 h-1 w-12 bg-gradient-to-r from-primary-500 to-fuchsia-500 rounded-full" />
+                            <div className="mt-4 mb-1 h-1 w-12 bg-gradient-to-r from-primary-500 to-fuchsia-500 rounded-full transition-all duration-300 group-hover:w-16 group-hover:shadow-[0_0_12px_rgba(139,92,246,0.4)]" />
                             <h4 className="text-lg font-semibold text-white mt-2">{stat.label}</h4>
                             <p className="text-sm text-slate-400 mt-2">{stat.desc}</p>
                         </motion.div>

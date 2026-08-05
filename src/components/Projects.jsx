@@ -1,6 +1,27 @@
+import { useState } from 'react'
 import { SectionWrapper, SectionHeader } from './SectionWrapper'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github } from 'lucide-react'
+
+function ProjectImage({ src, alt, color }) {
+    const [loaded, setLoaded] = useState(false)
+
+    return (
+        <div className="relative w-full h-full">
+            {/* Skeleton placeholder */}
+            {!loaded && (
+                <div className="absolute inset-0 project-image-skeleton rounded-[2rem]" />
+            )}
+            <img
+                src={src}
+                alt={alt}
+                className={`w-full h-full object-cover ${loaded ? 'project-image-loaded' : 'opacity-0'} mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]`}
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
+            />
+        </div>
+    )
+}
 
 export default function Projects() {
     const projects = [
@@ -82,13 +103,9 @@ export default function Projects() {
                         >
 
                             {/* Project Image Panel */}
-                            <div className="w-full lg:w-3/5 h-[400px] sm:h-[500px] relative rounded-[2rem] overflow-hidden glass-card border-none interactive cursor-pointer">
-                                {/* Image */}
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                                />
+                            <div className="w-full lg:w-3/5 h-[400px] sm:h-[500px] relative rounded-[2rem] overflow-hidden glass-card border-none interactive cursor-pointer" style={{ '--card-accent': `${project.color}40` }}>
+                                {/* Image with skeleton loading */}
+                                <ProjectImage src={project.image} alt={project.title} color={project.color} />
 
                                 {/* Glow behind image */}
                                 <div
@@ -112,7 +129,7 @@ export default function Projects() {
 
                             {/* Project Info Panel */}
                             <div className="w-full lg:w-2/5 flex flex-col justify-center">
-                                <span className="text-[7rem] font-display font-black text-white/[0.03] leading-none select-none pointer-events-none">
+                                <span className="text-[7rem] font-display font-black leading-none select-none pointer-events-none project-number">
                                     {String(index + 1).padStart(2, '0')}
                                 </span>
                                 <p className="text-sm font-bold tracking-widest uppercase mb-4" style={{ color: project.color }}>
@@ -140,7 +157,7 @@ export default function Projects() {
                                     <a href={project.live} className="flex items-center gap-2 text-white font-bold hover:underline">
                                         Live Demo <ArrowUpRight className="w-5 h-5" />
                                     </a>
-                                    <a href={project.github} className="flex items-center gap-2 text-zinc-400 hover:text-white">
+                                    <a href={project.github} className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
                                         <Github className="w-5 h-5" /> Code
                                     </a>
                                 </div>

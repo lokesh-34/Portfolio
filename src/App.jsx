@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import BackgroundEffects from './components/BackgroundEffects'
@@ -20,7 +21,11 @@ const LoadingFallback = () => (
 )
 
 const BootScreen = ({ progress }) => (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#030014] overflow-hidden">
+    <motion.div
+        initial={{ opacity: 1 }}
+        exit={{ opacity: 0, scale: 1.08, filter: 'blur(12px)' }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#030014] overflow-hidden">
         <div className="absolute inset-0 opacity-70 boot-grid" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.18),transparent_45%),radial-gradient(circle_at_top,rgba(6,182,212,0.1),transparent_28%)]" />
         <div className="absolute inset-0 boot-scanlines" />
@@ -62,7 +67,7 @@ const BootScreen = ({ progress }) => (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[0.65rem] sm:text-xs uppercase tracking-[0.65em] text-zinc-600">
             {progress < 100 ? 'Calibrating interface' : 'Ready'}
         </div>
-    </div>
+    </motion.div>
 )
 
 function App() {
@@ -108,7 +113,9 @@ function App() {
             <Suspense fallback={<LoadingFallback />}>
                 <Footer />
             </Suspense>
-            {isBooting && <BootScreen progress={progress} />}
+            <AnimatePresence>
+                {isBooting && <BootScreen progress={progress} />}
+            </AnimatePresence>
         </div>
     )
 }
